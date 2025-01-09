@@ -1,0 +1,52 @@
+class Student:
+    def init(self, name):
+        self.name = name
+        self.grades = []
+    def add_grade(self, grade):
+        if 0 <= grade <= 100:  # Grade should be between 0 and 100
+            self.grades.append(grade)
+            print(f"Grade {grade} added for {self.name}.")
+        else:
+            print("Invalid grade. Please enter a grade between 0 and 100.")
+    def calculate_average(self):
+        if self.grades:
+            average = sum(self.grades) / len(self.grades)
+            return round(average, 2)
+        else:
+            return 0
+    def display_grades(self):
+        print(f"Grades for {self.name}: {self.grades}")
+        print(f"Average Grade: {self.calculate_average()}")
+# Main program
+students = {}
+while True:
+    print("\n1. Add Student")
+    print("2. Add Grade")
+    print("3. View Grades")
+    print("4. Exit")
+    choice = input("Enter your choice: ")
+    if choice == "1":
+        name = input("Enter student name: ")
+        students[name] = Student(name)
+        print(f"Student {name} added.")
+    elif choice == "2":
+        name = input("Enter student name: ")
+        if name in students:
+            try:
+                grade = float(input(f"Enter grade for {name}: "))
+                students[name].add_grade(grade)
+            except ValueError:
+                print("Please enter a valid number for grade.")
+        else:
+            print("Student not found.")
+    elif choice == "3":
+        name = input("Enter student name: ")
+        if name in students:
+            students[name].display_grades()
+        else:
+            print("Student not found.")
+    elif choice == "4":
+        print("Exiting the program.")
+        break
+    else:
+        print("Invalid choice. Please try again.")
